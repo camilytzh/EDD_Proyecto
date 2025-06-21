@@ -1,4 +1,4 @@
-package data;
+package modelo;
 
 public class Foto {
 }
