@@ -16,11 +16,11 @@ public class ContactoPersonal extends Contacto implements Serializable {
         this.alias = alias;
         this.redesSociales = new HashMap<> ();
     }
-    public String getFechaNacimiento(){
+    public String getAlias(){
         return alias;
     }
 
-    public void setFechanacimiento(Date fechaNacimiento){
+    public void setAlias(String alias){
         this.alias = alias;
     }
 

@@ -1,5 +1,7 @@
 package modelo;
 
+import estructuras.Agenda;
+
 public class GeneradorDatosIniciales {
     public static void main(String[] args) {
         Agenda agenda = new Agenda();
