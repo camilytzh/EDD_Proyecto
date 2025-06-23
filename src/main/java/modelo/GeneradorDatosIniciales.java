@@ -20,9 +20,50 @@ public class GeneradorDatosIniciales {
         contacto2.agregarFoto("carlos_oficina.jpg");
         contacto2.agregarFechaDeInteres("Inicio Laboral", "2020-03-01");
 
+        ContactoPersonal contacto12 = new ContactoPersonal("Rita Torres", "Amiga de la infancia");
+        contacto12.getTelef().put("celular", "0991234568");
+        contacto12.getEmails().put("personal", "rita.torres@example.com");
+        contacto12.getRedesSociales().put("instagram", "@rita_torres");
+        contacto12.agregarFoto("rita_torres.jpg");
+        contacto12.agregarFechaDeInteres("Cumpleaños", "1995-02-20");
+
+        ContactoPersonal contacto13 = new ContactoPersonal("Luisito Tamayo", "Compañero de trabajo");
+        contacto13.getTelef().put("celular", "0991234569");
+        contacto13.getEmails().put("personal", "luisito.tamayo@example.com");
+        contacto13.getRedesSociales().put("instagram", "@luisito_tamayo");
+        contacto13.agregarFoto("luisito_tamayo.jpg");
+        contacto13.agregarFechaDeInteres("Aniversario en la oficina", "2019-07-10");
+
+        ContactoPersonal contacto14 = new ContactoPersonal("Pajiliam Maurad", "Colega de universidad");
+        contacto14.getTelef().put("celular", "0991234570");
+        contacto14.getEmails().put("personal", "pajiliam.maurad@example.com");
+        contacto14.getRedesSociales().put("instagram", "@pajiliam_maurad");
+        contacto14.agregarFoto("pajiliam_maurad.jpg");
+        contacto14.agregarFechaDeInteres("Graduación", "2021-12-18");
+
+
+        ContactoLaboral contacto15 = new ContactoLaboral("Karla Mite", "Profesional en Marketing");
+        contacto15.getTelef().put("trabajo", "042555005");
+        contacto15.getEmails().put("corporativo", "karla.mite@marketing.com");
+        contacto15.agregarFoto("karla_mite.jpg");
+        contacto15.agregarFechaDeInteres("Primer cliente importante", "2020-03-25");
+
+        ContactoLaboral contacto16 = new ContactoLaboral("Roberson Paja", "Gerente de Ventas");
+        contacto16.getTelef().put("trabajo", "042555006");
+        contacto16.getEmails().put("corporativo", "roberson.paja@ventas.com");
+        contacto16.agregarFoto("roberson_paja.jpg");
+        contacto16.agregarFechaDeInteres("Éxito en ventas", "2018-09-30");
+
         // Agregar a la agenda
         agenda.agregarContacto(contacto1);
         agenda.agregarContacto(contacto2);
+        agenda.agregarContacto(contacto12);
+        agenda.agregarContacto(contacto13);
+        agenda.agregarContacto(contacto14);
+        agenda.agregarContacto(contacto15);
+        agenda.agregarContacto(contacto16);
+
+
 
         // Guardar en archivo binario
         agenda.guardarContactos("contactos.bin");
