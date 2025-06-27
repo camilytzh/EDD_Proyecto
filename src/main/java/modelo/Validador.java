@@ -30,10 +30,4 @@ public class Validador {
         }
     }
 
-    // Ejemplo de uso
-    public static void main(String[] args) {
-        int edad = Validador.pedirNumero("Introduce tu edad: ");
-        String nombre = Validador.pedirTexto("Introduce tu nombre: ");
-        System.out.println("Nombre: " + nombre + ", Edad: " + edad);
-    }
 }

@@ -1,6 +1,7 @@
 package app;
 
 import estructuras.Agenda;
+import modelo.Validador;
 
 import java.util.Scanner;
 
@@ -30,10 +31,10 @@ public class SistemasContactos {
             System.out.println("5. Eliminar Contacto");
             System.out.println("6. Guardar Contactos");
             System.out.println("7. Salir");
-            System.out.print("Seleccione una opción: ");
 
-            int opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+
+            int opcion = Validador.pedirNumero("Seleccione una opción: ");
+
 
             switch (opcion) {
                 case 1:

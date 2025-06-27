@@ -4,6 +4,16 @@ import modelo.Contacto;
 
 import java.io.*;
 
+class NodoCircularDoble<T> {
+    T dato;
+    NodoCircularDoble<T> siguiente, anterior;
+
+    public NodoCircularDoble(T dato) {
+        this.dato = dato;
+        this.siguiente = this.anterior = null;
+    }
+}
+
 public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     public NodoCircularDoble<Contacto> miCabecera;

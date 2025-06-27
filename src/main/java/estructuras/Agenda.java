@@ -3,12 +3,14 @@ package estructuras;
 import modelo.Contacto;
 import modelo.ContactoLaboral;
 import modelo.ContactoPersonal;
+import modelo.Validador;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Agenda {
-    Scanner scanner = new Scanner(System.in);
+
     private CustomListaCircularEnlazadaDoble<Contacto> contactos;
 
     public Agenda(){
@@ -52,8 +54,8 @@ public class Agenda {
         }
     }
     public void eliminarContacto() {
-        System.out.println("Ingrese el numero de telefono del contacto a eliminar:");
-        String telefono = scanner.nextLine();
+
+        String telefono = Validador.pedirTexto("Ingrese el numero de telefono del contacto a eliminar:");
 
         if (contactos == null || contactos.mostrarPosicionContactoActual() == null) {
             System.out.println("No hay contactos en la agenda para eliminar.");
@@ -80,90 +82,89 @@ public class Agenda {
         }
     }
     public void crearContactoPersona() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese el nombre de la persona:");
-        String nombre = sc.nextLine();
-        System.out.println("Ingrese el alias del contacto:");
-        String alias = sc.nextLine();
+        String nombre = Validador.pedirTexto("Ingrese el nombre de la persona:");
+
+        String alias = Validador.pedirTexto("Ingrese el alias del contacto:");
+
         ContactoPersonal persona = new ContactoPersonal(nombre, alias);
-        System.out.println("Desea agregar numeros de telefono (s/n):");
-        String respuesta = sc.nextLine();
+
+        String respuesta = Validador.pedirTexto("Desea agregar numeros de telefono (s/n):");
+
         while (respuesta.equalsIgnoreCase("s")) {
-            System.out.println("Ingrese el tipo de telefono (Ej: movil, casa, trabajo):");
-            String tipo = sc.nextLine();
-            System.out.println("Ingrese el numero de telefono:");
-            String numero = sc.nextLine();
+
+            String tipo = Validador.pedirTexto("Ingrese el tipo de telefono (Ej: movil, casa, trabajo):");
+
+            String numero = Validador.pedirTexto("Ingrese el numero de telefono:");
+
             persona.getTelef().put(tipo, numero);
 
-            System.out.println("Desea agregar otro numero de telefono (s/n):");
-            respuesta = sc.nextLine();
+            respuesta = Validador.pedirTexto("Desea agregar otro numero de telefono (s/n):");
         }
-        System.out.println("Desea agregar correos electronicos (s/n):");
-        respuesta = sc.nextLine();
+
+        respuesta = Validador.pedirTexto("Desea agregar correos electronicos (s/n):");
         while (respuesta.equalsIgnoreCase("s")) {
-            System.out.println("Ingrese el tipo de correo (Ej: personal, trabajo):");
-            String tipo = sc.nextLine();
-            System.out.println("Ingrese el correo:");
-            String correo = sc.nextLine();
+
+            String tipo = Validador.pedirTexto("Ingrese el tipo de correo (Ej: personal, trabajo):");
+
+            String correo = Validador.pedirTexto("Ingrese el correo:");
+
             persona.getEmails().put(tipo, correo);
-            System.out.println("Desea agregar otro correo (s/n):");
-            respuesta = sc.nextLine();
+            respuesta = Validador.pedirTexto("Desea agregar otro correo (s/n):");
         }
-        System.out.println("Desea agregar redes sociales (s/n):");
-        respuesta = sc.nextLine();
+        respuesta = Validador.pedirTexto("Desea agregar redes sociales (s/n):");
         while (respuesta.equalsIgnoreCase("s")) {
-            System.out.println("Ingrese la plataforma (Ej: Instagram):");
-            String plataforma = sc.nextLine();
-            System.out.println("Ingrese el usuario:");
-            String usuario = sc.nextLine();
+
+
+            String plataforma = Validador.pedirTexto("Ingrese la plataforma (Ej: Instagram):");
+            System.out.println();
+            String usuario = Validador.pedirTexto("Ingrese el usuario:");
             persona.agregarRedSocial(plataforma, usuario);
 
-            System.out.println("Desea agregar otra red social (s/n):");
-            respuesta = sc.nextLine();
+
+            respuesta =Validador.pedirTexto("Desea agregar otra red social (s/n):");
         }
 
-        System.out.println("¿Desea agregar fotos? (s/n):");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
+
+
+        if (Validador.pedirTexto("¿Desea agregar fotos? (s/n):").equalsIgnoreCase("s")) {
             do {
-                System.out.println("Ruta de la foto:");
-                String foto = sc.nextLine();
+
+                String foto = Validador.pedirTexto("Ruta de la foto:");
                 persona.agregarFoto(foto);
-                System.out.println("¿Desea agregar otra foto? (s/n):");
-            } while (sc.nextLine().equalsIgnoreCase("s"));
+                System.out.println();
+
+
+            } while (Validador.pedirTexto("¿Desea agregar otra foto? (s/n):").equalsIgnoreCase("s"));
         }
 
-        System.out.println("¿Desea agregar fechas de interés? (s/n):");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
+
+        if (Validador.pedirTexto("¿Desea agregar fechas de interés? (s/n):").equalsIgnoreCase("s")) {
             do {
-                System.out.println("Descripción de la fecha:");
-                String descripcion = sc.nextLine();
-                System.out.println("Fecha:");
-                String fecha = sc.nextLine();
+                String descripcion = Validador.pedirTexto("Descripción de la fecha:");
+
+                String fecha = Validador.pedirTexto("Fecha:");
                 persona.agregarFechaDeInteres(descripcion, fecha);
-                System.out.println("¿Desea agregar otra fecha? (s/n):");
-            } while (sc.nextLine().equalsIgnoreCase("s"));
+
+            } while (Validador.pedirTexto("¿Desea agregar otra fecha? (s/n):").equalsIgnoreCase("s"));
         }
         contactos.addLast(persona);
         System.out.println("Contacto creado y agregado a la lista");
     }
     public void añadirContactoEmpresa() {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre de la empresa:");
-        String nombreEmpresa = scanner.nextLine();
-        System.out.println("Ingrese la dirección del trabajo:");
-        String direccionEmpresa = scanner.nextLine();
+        String nombreEmpresa = Validador.pedirTexto("Ingrese el nombre de la empresa:");
+        String direccionEmpresa = Validador.pedirTexto("Ingrese la dirección del trabajo:");
+
         HashMap<String, String> telefonosEmpresa = new HashMap<>();
-        System.out.println("Ingrese el tipo de teléfono de la empresa (Móvil, Oficina):");
-        String tipoTelf = scanner.nextLine();
-        System.out.println("Ingrese el número de teléfono:");
-        String numTelf = scanner.nextLine();
+        String tipoTelf = Validador.pedirTexto("Ingrese el tipo de teléfono de la empresa (Móvil, Oficina):");
+
+        String numTelf = Validador.pedirTexto("Ingrese el número de teléfono:");
         telefonosEmpresa.put(tipoTelf, numTelf);
         HashMap<String, String> emailsEmpresa = new HashMap<>();
-        System.out.println("Ingrese el tipo de email de la empresa (Ejecutivo):");
-        String tipoEmail = scanner.nextLine();
-        System.out.println("Ingrese el correo electrónico:");
-        String correoEmail = scanner.nextLine();
+
+        String tipoEmail = Validador.pedirTexto("Ingrese el tipo de email de la empresa (Ejecutivo):");
+        String correoEmail = Validador.pedirTexto("Ingrese el correo electrónico:");
+
         emailsEmpresa.put(tipoEmail, correoEmail);
 
         ContactoLaboral empresa = new ContactoLaboral(nombreEmpresa, direccionEmpresa);
