@@ -4,7 +4,7 @@ import modelo.Contacto;
 
 import java.io.*;
 
-class NodoCircularDoble<T> {
+class NodoCircularDoble<T> implements Serializable{
     T dato;
     NodoCircularDoble<T> siguiente, anterior;
 

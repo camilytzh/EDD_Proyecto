@@ -19,6 +19,7 @@ public class GeneradorDatosIniciales {
         contacto2.getEmails().put("corporativo", "cruiz@xyz.com");
         contacto2.agregarFoto("carlos_oficina.jpg");
         contacto2.agregarFechaDeInteres("Inicio Laboral", "2020-03-01");
+        contacto2.agregarRelacionado("hermano", contacto1);
 
         ContactoPersonal contacto12 = new ContactoPersonal("Rita Torres", "Amiga de la infancia");
         contacto12.getTelef().put("celular", "0991234568");

@@ -219,10 +219,36 @@ public class Agenda {
 
         return null;
     }
+    public void agregarContactoRelacionado() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nombre del contacto principal: ");
+        String nombre1 = sc.nextLine();
+
+        Contacto c1 = buscarPorNombre(nombre1);
+        if (c1 == null) {
+            System.out.println("No se encontró el primer contacto.");
+            return;
+        }
+
+        System.out.print("Nombre del contacto que quiere asociar: ");
+        String nombre2 = sc.nextLine();
+
+        Contacto c2 = buscarPorNombre(nombre2);
+        if (c2 == null) {
+            System.out.println("No se encontró el segundo contacto.");
+            return;
+        }
+
+        System.out.print("Ingrese el tipo de relación (ej. amigo, hermano, compañero): ");
+        String tipoRelacion = sc.nextLine();
+
+        c1.agregarRelacionado(tipoRelacion, c2);
+        System.out.println("Contacto relacionado agregado con éxito.");
+    }
+
     public void modificarAtributoContacto() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Ingrese el nombre del contacto a modificar: ");
-        String nombre = sc.nextLine();
+        String nombre = Validador.pedirTexto("Ingrese el nombre del contacto a modificar: ");
 
         Contacto contacto = buscarPorNombre(nombre);
 
@@ -262,9 +288,7 @@ public class Agenda {
             opciones.put(i++, "direccionTrabajo");
         }
 
-        System.out.print("Opción: ");
-        int opcion = sc.nextInt();
-        sc.nextLine(); // limpiar buffer
+        int opcion = Validador.pedirNumero("Opcion: ");
 
         String tipo = opciones.get(opcion);
 
@@ -275,20 +299,16 @@ public class Agenda {
 
         switch (tipo) {
             case "nombre":
-                System.out.print("Nuevo nombre: ");
-                contacto.setNombre(sc.nextLine());
+                contacto.setNombre(Validador.pedirTexto("Nuevo nombre: "));
                 break;
 
             case "telefono":
-                System.out.print("¿Desea (1) Agregar/Modificar o (2) Eliminar un número de teléfono? ");
-                int accionTel = sc.nextInt(); sc.nextLine();
+                int accionTel = Validador.pedirNumero("¿Desea (1) Agregar/Modificar o (2) Eliminar un número de teléfono? ");
 
-                System.out.print("Etiqueta del teléfono (ej. casa, móvil): ");
-                String tipoTel = sc.nextLine();
+                String tipoTel = Validador.pedirTexto("Etiqueta del teléfono (ej. casa, móvil): ");
 
                 if (accionTel == 1) {
-                    System.out.print("Nuevo número: ");
-                    String nuevoNumero = sc.nextLine();
+                    String nuevoNumero = Validador.pedirTexto("Nuevo número: ");
                     contacto.getTelef().put(tipoTel, nuevoNumero);
                     System.out.println("Teléfono agregado/modificado.");
                 } else if (accionTel == 2) {
@@ -303,15 +323,12 @@ public class Agenda {
                 break;
 
             case "email":
-                System.out.print("¿Desea (1) Agregar/Modificar o (2) Eliminar un email? ");
-                int accionEmail = sc.nextInt(); sc.nextLine();
+                int accionEmail = Validador.pedirNumero("¿Desea (1) Agregar/Modificar o (2) Eliminar un email? ");
 
-                System.out.print("Etiqueta del email (ej. personal, trabajo): ");
-                String claveEmail = sc.nextLine();
+                String claveEmail = Validador.pedirTexto("Etiqueta del email (ej. personal, trabajo): ");
 
                 if (accionEmail == 1) {
-                    System.out.print("Nuevo email: ");
-                    String nuevoEmail = sc.nextLine();
+                    String nuevoEmail = Validador.pedirTexto("Nuevo email: ");
                     contacto.getEmails().put(claveEmail, nuevoEmail);
                     System.out.println("Email agregado/modificado.");
                 } else if (accionEmail == 2) {
@@ -326,15 +343,12 @@ public class Agenda {
                 break;
 
             case "red":
-                System.out.print("¿Desea (1) Agregar/Modificar o (2) Eliminar una red social? ");
-                int accionRed = sc.nextInt(); sc.nextLine();
+                int accionRed = Validador.pedirNumero("¿Desea (1) Agregar/Modificar o (2) Eliminar una red social? ");
 
-                System.out.print("Nombre de la red social (ej. IG, Twitter): ");
-                String red = sc.nextLine();
+                String red = Validador.pedirTexto("Nombre de la red social (ej. IG, Twitter): ");
 
                 if (accionRed == 1) {
-                    System.out.print("Usuario o enlace: ");
-                    String cuenta = sc.nextLine();
+                    String cuenta = Validador.pedirTexto("Usuario o enlace: ");
                     contacto.getRedesSociales().put(red, cuenta);
                     System.out.println("Red social agregada/modificada.");
                 } else if (accionRed == 2) {
@@ -349,15 +363,12 @@ public class Agenda {
                 break;
 
             case "fecha":
-                System.out.print("¿Desea (1) Agregar/Modificar o (2) Eliminar una fecha? ");
-                int accionFecha = sc.nextInt(); sc.nextLine();
+                int accionFecha = Validador.pedirNumero("¿Desea (1) Agregar/Modificar o (2) Eliminar una fecha? ");
 
-                System.out.print("Descripción (ej. cumpleaños, aniversario): ");
-                String desc = sc.nextLine();
+                String desc = Validador.pedirTexto("Descripción (ej. cumpleaños, aniversario): ");
 
                 if (accionFecha == 1) {
-                    System.out.print("Nueva fecha (ej. 01/01/2025): ");
-                    String nuevaFecha = sc.nextLine();
+                    String nuevaFecha = Validador.pedirTexto("Nueva fecha (ej. 01/01/2025): ");
                     contacto.getFechasDeInteres().put(desc, nuevaFecha);
                     System.out.println("Fecha agregada/modificada.");
                 } else if (accionFecha == 2) {
@@ -372,14 +383,12 @@ public class Agenda {
                 break;
 
             case "alias":
-                System.out.print("Nuevo alias: ");
-                ((ContactoPersonal) contacto).alias = sc.nextLine();
+                ((ContactoPersonal) contacto).alias = Validador.pedirTexto("Nuevo alias: ");
                 System.out.println("Alias actualizado.");
                 break;
 
             case "direccionTrabajo":
-                System.out.print("Nueva dirección de trabajo: ");
-                ((ContactoLaboral) contacto).setDireccionTrabajo(sc.nextLine());
+                ((ContactoLaboral) contacto).setDireccionTrabajo(Validador.pedirTexto("Nueva dirección de trabajo: "));
                 System.out.println("Dirección de trabajo actualizada.");
                 break;
 

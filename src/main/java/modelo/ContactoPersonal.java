@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 public class ContactoPersonal extends Contacto implements Serializable {
     public String alias;
-    public HashMap<String,String> redesSociales;
 
     public ContactoPersonal(String nombre){
         super(nombre);
@@ -14,7 +13,6 @@ public class ContactoPersonal extends Contacto implements Serializable {
     public ContactoPersonal(String nombre, String alias){
         super(nombre);
         this.alias = alias;
-        this.redesSociales = new HashMap<> ();
     }
     public String getAlias(){
         return alias;
@@ -22,14 +20,6 @@ public class ContactoPersonal extends Contacto implements Serializable {
 
     public void setAlias(String alias){
         this.alias = alias;
-    }
-
-    public void agregarRedSocial(String plataforma, String usuario){
-        redesSociales.put(plataforma, usuario);
-    }
-
-    public void elminarRedSocial(String plataforma){
-        redesSociales.remove(plataforma);
     }
 
     @Override
@@ -43,11 +33,6 @@ public class ContactoPersonal extends Contacto implements Serializable {
         System.out.println("Emails registrados:");
         getEmails().forEach((tipo, email) -> System.out.println(tipo + ": " + email));
 
-        System.out.println("Redes Sociales:");
-        redesSociales.forEach((plataforma, usuario) -> {
-            System.out.println(plataforma + ": " + usuario);
-        });
-
         System.out.println("Fotos:");
         mostrarFotos();
 
@@ -55,6 +40,9 @@ public class ContactoPersonal extends Contacto implements Serializable {
         getFechasDeInteres().forEach((descripcion, fecha) -> {
             System.out.println(descripcion + ": " + fecha);
         });
+
+        System.out.println("Contactos relacionados:");
+        mostrarContactosRelacionados();
     }
 }
 

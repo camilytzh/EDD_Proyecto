@@ -1,6 +1,7 @@
 package modelo;
 
 import estructuras.ArrayListPropio;
+import estructuras.CustomListaCircularEnlazadaDoble;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 public abstract class Contacto implements Serializable {
     private String nombre;
     private HashMap<String,String> telef;
-    private HashMap<String, Contacto> contactosRelacionados;
+    private HashMap<String, CustomListaCircularEnlazadaDoble<Contacto>> contactosRelacionados;
     private HashMap<String,String> emails;
     private HashMap<String, String> redesSociales;
     private ArrayListPropio<String> fotos;
@@ -36,7 +37,7 @@ public abstract class Contacto implements Serializable {
         return telef;
     }
 
-    public HashMap<String, Contacto> getContactosRelacionados() {
+    public HashMap<String, CustomListaCircularEnlazadaDoble<Contacto>> getContactosRelacionados() {
         return contactosRelacionados;
     }
 
@@ -60,6 +61,32 @@ public abstract class Contacto implements Serializable {
             System.out.println(i + ": " + fotos.get(i));
         }
     }
+    public void agregarRedSocial(String plataforma, String usuario){
+        redesSociales.put(plataforma, usuario);
+    }
+    public void elminarRedSocial(String plataforma){
+        redesSociales.remove(plataforma);
+    }
+    public void agregarRelacionado(String tipoRelacion, Contacto relacionado) {
+        contactosRelacionados
+                .computeIfAbsent(tipoRelacion, k -> new CustomListaCircularEnlazadaDoble<>())
+                .addLast(relacionado);
+    }
+    public void mostrarContactosRelacionados() {
+        if (contactosRelacionados == null || contactosRelacionados.isEmpty()) {
+            System.out.println("No hay contactos relacionados.");
+            return;
+        }
+
+        for (String tipo : contactosRelacionados.keySet()) {
+            System.out.println("Relación: " + tipo);
+            CustomListaCircularEnlazadaDoble<Contacto> lista = contactosRelacionados.get(tipo);
+            if (lista != null) {
+                lista.mostrarContactos();
+            }
+        }
+    }
+
     public String eliminarFoto(int indice) {
         try {
             return fotos.remove(indice);
@@ -75,8 +102,6 @@ public abstract class Contacto implements Serializable {
         fechasDeInteres.remove(descripcion);
     }
     public abstract void mostrarInformacion();
-
-
 
     public ArrayListPropio<String> getFotos() {
         return fotos;

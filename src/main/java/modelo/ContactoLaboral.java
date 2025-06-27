@@ -42,5 +42,8 @@ public class ContactoLaboral extends Contacto implements Serializable {
         getFechasDeInteres().forEach((descripcion, fecha) -> {
             System.out.println(descripcion + ": " + fecha);
         });
+
+        System.out.println("Contactos relacionados:");
+        mostrarContactosRelacionados();
     }
 }
