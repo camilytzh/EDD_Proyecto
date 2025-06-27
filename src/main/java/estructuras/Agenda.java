@@ -223,32 +223,6 @@ public class Agenda {
 
         return null;
     }
-    public void agregarContactoRelacionado() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nombre del contacto principal: ");
-        String nombre1 = sc.nextLine();
-
-        Contacto c1 = buscarPorNombre(nombre1);
-        if (c1 == null) {
-            System.out.println("No se encontró el primer contacto.");
-            return;
-        }
-
-        System.out.print("Nombre del contacto que quiere asociar: ");
-        String nombre2 = sc.nextLine();
-
-        Contacto c2 = buscarPorNombre(nombre2);
-        if (c2 == null) {
-            System.out.println("No se encontró el segundo contacto.");
-            return;
-        }
-
-        System.out.print("Ingrese el tipo de relación (ej. amigo, hermano, compañero): ");
-        String tipoRelacion = sc.nextLine();
-
-        c1.agregarRelacionado(tipoRelacion, c2);
-        System.out.println("Contacto relacionado agregado con éxito.");
-    }
 
     public void modificarAtributoContacto() {
         Scanner sc = new Scanner(System.in);
@@ -261,7 +235,7 @@ public class Agenda {
             return;
         }
 
-        System.out.println("\n Contacto encontrado: " + contacto.getNombre());
+        System.out.println("\nContacto encontrado: " + contacto.getNombre());
         System.out.println("Seleccione el atributo a modificar:");
 
         int i = 1;
@@ -269,6 +243,9 @@ public class Agenda {
 
         System.out.println((i) + ". Nombre");
         opciones.put(i++, "nombre");
+
+        System.out.println((i) + ". Pais");
+        opciones.put(i++, "pais");
 
         System.out.println((i) + ". Teléfono");
         opciones.put(i++, "telefono");
@@ -281,6 +258,10 @@ public class Agenda {
 
         System.out.println((i) + ". Fecha de Interés");
         opciones.put(i++, "fecha");
+
+        System.out.println((i) + ". Contacto Relacionado");
+        opciones.put(i++, "relacionado");
+
 
         if (contacto instanceof ContactoPersonal) {
             System.out.println((i) + ". Alias");
@@ -304,6 +285,10 @@ public class Agenda {
         switch (tipo) {
             case "nombre":
                 contacto.setNombre(Validador.pedirTexto("Nuevo nombre: "));
+                break;
+
+            case "pais":
+                contacto.setPais(Validador.pedirTexto("Nuevo pais: "));
                 break;
 
             case "telefono":
@@ -396,21 +381,44 @@ public class Agenda {
                 System.out.println("Dirección de trabajo actualizada.");
                 break;
 
+            case "relacionado":
+                int accionRel = Validador.pedirNumero("¿Desea (1) Agregar o (2) Eliminar un contacto relacionado? ");
+                if (accionRel == 1) {
+                    String nombre2 = Validador.pedirTexto("Nombre del contacto que quiere asociar: ");
+                    Contacto c2 = buscarPorNombre(nombre2);
+                    if (c2 == null) {
+                        System.out.println("No se encontró el segundo contacto.");
+                        break;
+                    }
+                    String tipoRelacion = Validador.pedirTexto("Tipo de relación (ej. amigo, colega): ");
+                    contacto.agregarRelacionado(tipoRelacion, c2);
+                    System.out.println("Contacto relacionado agregado con éxito.");
+                } else if (accionRel == 2) {
+                    String nombre2 = Validador.pedirTexto("Nombre del contacto relacionado a eliminar: ");
+                    String tipoRelacion = Validador.pedirTexto("Tipo de relación: ");
+                    boolean eliminado = contacto.eliminarRelacionado(tipoRelacion, nombre2);
+                    if (eliminado) {
+                        System.out.println("Contacto relacionado eliminado con éxito.");
+                    } else {
+                        System.out.println("No se encontró esa relación.");
+                    }
+                } else {
+                    System.out.println("Opción inválida.");
+                }
+                break;
+
             default:
                 System.out.println("Opción no válida.");
         }
     }
 
     public void mostrarContactosOrdenadosPorUsuario() {
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("¿Cómo deseas ordenar los contactos?");
         System.out.println("1. Por nombre");
         System.out.println("2. Por país");
         System.out.println("3. Por tipo de contacto (personal/laboral)");
 
-        int opcion = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
+        int opcion = Validador.pedirNumero("Opcion: ");
 
         Comparator<Contacto> comparador = null;
 
@@ -450,7 +458,7 @@ public class Agenda {
         listaTemporal.ordenar(comparador);
 
         // Mostrar
-        System.out.println("--- Contactos ordenados ---");
+        System.out.println("--------- Contactos ordenados ---------");
         for (int i = 0; i < listaTemporal.size(); i++) {
             listaTemporal.get(i).mostrarInformacion();
         }

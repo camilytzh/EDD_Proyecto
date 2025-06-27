@@ -51,6 +51,22 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
         tamanio++;
 
     }
+    public int getSize(){
+        return tamanio;
+    }
+    public Contacto get(int index) {
+        if (miCabecera == null || index < 0 || index >= getSize()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+        }
+
+        NodoCircularDoble<Contacto> actual = miCabecera;
+
+        for (int i = 0; i < index; i++) {
+            actual = actual.siguiente;
+        }
+
+        return actual.dato;
+    }
 
     // Método para eliminar un contacto específico
     public boolean eliminar(Contacto contacto) {

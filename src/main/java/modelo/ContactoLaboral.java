@@ -21,30 +21,29 @@ public class ContactoLaboral extends Contacto implements Serializable {
 
     @Override
     public void mostrarInformacion() {
-        System.out.println("Empresa:");
-        System.out.println("Nombre: " + this.getNombre());
-        System.out.println("Pais: " + getPais()+" \n");
+        System.out.println("Nombre del Contacto: " + this.getNombre()+" \n");
+        System.out.println("Pais: " + getPais());
         System.out.println("Direccion: " + this.getDireccionTrabajo());
 
-        System.out.println("Telefonos:");
+        System.out.println("[Telefonos registrados]");
         for (String tipo : this.getTelef().keySet()) {
-            System.out.println("  " + tipo + ": " + this.getTelef().get(tipo));
+            System.out.println("> " + tipo + ": " + this.getTelef().get(tipo));
         }
 
-        System.out.println("Emails:");
+        System.out.println("[Emails registrados]");
         for (String tipo : this.getEmails().keySet()) {
-            System.out.println("  " + tipo + ": " + this.getEmails().get(tipo));
+            System.out.println("> " + tipo + ": " + this.getEmails().get(tipo));
         }
-
 
         mostrarFotos();
 
-        System.out.println("Fechas de interés:");
+        System.out.println("[Fechas de interés]");
         getFechasDeInteres().forEach((descripcion, fecha) -> {
             System.out.println(descripcion + ": " + fecha);
         });
 
-        System.out.println("Contactos relacionados:");
+        System.out.println("\n[Contactos relacionados]");
+        System.out.println("----------------------------------");
         mostrarContactosRelacionados();
     }
 }

@@ -40,6 +40,9 @@ public abstract class Contacto implements Serializable {
         return pais;
     }
 
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
     public HashMap<String, String> getEmails() {
         return emails;
@@ -56,9 +59,9 @@ public abstract class Contacto implements Serializable {
         fotos.add(ruta);
     }
     public void mostrarFotos() {
-        System.out.println("Fotos:");
+        System.out.println("[Fotos]");
         for (int i = 0; i < fotos.size(); i++) {
-            System.out.println(i + ": " + fotos.get(i));
+            System.out.println("> " + i + ": " + fotos.get(i));
         }
     }
     public void agregarRedSocial(String plataforma, String usuario){
@@ -70,44 +73,45 @@ public abstract class Contacto implements Serializable {
                 .computeIfAbsent(tipoRelacion, k -> new CustomListaCircularEnlazadaDoble<>())
                 .addLast(relacionado);
     }
+    public boolean eliminarRelacionado(String tipoRelacion, String nombreContacto) {
+        if (!contactosRelacionados.containsKey(tipoRelacion)) {
+            return false;
+        }
+
+        CustomListaCircularEnlazadaDoble<Contacto> relacionados = contactosRelacionados.get(tipoRelacion);
+
+        for (int i = 0; i < relacionados.getSize(); i++) {
+            Contacto c = relacionados.get(i);
+            if (c.getNombre().equalsIgnoreCase(nombreContacto)) {
+                relacionados.eliminar(c);
+                if (relacionados.getSize() == 0) {
+                    contactosRelacionados.remove(tipoRelacion);
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void mostrarContactosRelacionados() {
         if (contactosRelacionados == null || contactosRelacionados.isEmpty()) {
-            System.out.println("No hay contactos relacionados.");
             return;
         }
 
         for (String tipo : contactosRelacionados.keySet()) {
-            System.out.println("Relación: " + tipo);
+            System.out.println("> Relación: " + tipo);
             CustomListaCircularEnlazadaDoble<Contacto> lista = contactosRelacionados.get(tipo);
             if (lista != null) {
                 lista.mostrarContactos();
+                System.out.println("----------------------------------");
             }
         }
     }
 
-
     public void agregarFechaDeInteres(String descripcion, String fecha) {
         fechasDeInteres.put(descripcion,fecha);
     }
-
-
-    public void eliminarFechaDeInteres(String descripcion) {
-        fechasDeInteres.remove(descripcion);
-    }
-
-    public void elminarRedSocial(String plataforma){
-        redesSociales.remove(plataforma);
-    }
-
-    public String eliminarFoto(int indice) {
-        try {
-            return fotos.remove(indice);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Índice de foto inválido.");
-            return null;
-        }
-    }
-
 
     public abstract void mostrarInformacion();
 

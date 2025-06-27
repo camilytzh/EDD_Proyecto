@@ -22,6 +22,7 @@ public class SistemasContactos {
         }
 
         while (true) {
+            System.out.println("======== MENU DE OPCIONES ========");
             System.out.println("1. Agregar Persona");
             System.out.println("2. Agregar Empresa");
             System.out.println("3. Mostrar TODOS los Contactos");
@@ -31,10 +32,11 @@ public class SistemasContactos {
             System.out.println("7. Guardar Contactos");
             System.out.println("8. Modificar Contacto ");
             System.out.println("9. Salir");
+            System.out.println("==================================");
 
 
             int opcion = Validador.pedirNumero("Seleccione una opción: ");
-
+            System.out.println("==================================");
 
             switch (opcion) {
                 case 1:
@@ -43,7 +45,6 @@ public class SistemasContactos {
                 case 2:
                     gestor.añadirContactoEmpresa();
                     break;
-
                 case 3 :
                     gestor.mostrarContactosOrdenadosPorUsuario();
                     break;
