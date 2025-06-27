@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class ContactoLaboral extends Contacto implements Serializable {
     private String direccionTrabajo;
 
-    public ContactoLaboral(String nombre, String direccionTrabajo){
-        super(nombre);
+    public ContactoLaboral(String nombre,String pais, String direccionTrabajo){
+        super(nombre,pais);
         setNombre(nombre);
         this.direccionTrabajo = direccionTrabajo;
     }
@@ -23,6 +23,7 @@ public class ContactoLaboral extends Contacto implements Serializable {
     public void mostrarInformacion() {
         System.out.println("Empresa:");
         System.out.println("Nombre: " + this.getNombre());
+        System.out.println("Pais: " + getPais()+" \n");
         System.out.println("Direccion: " + this.getDireccionTrabajo());
 
         System.out.println("Telefonos:");
@@ -35,7 +36,7 @@ public class ContactoLaboral extends Contacto implements Serializable {
             System.out.println("  " + tipo + ": " + this.getEmails().get(tipo));
         }
 
-        System.out.println("Fotos:");
+
         mostrarFotos();
 
         System.out.println("Fechas de interés:");

@@ -21,17 +21,16 @@ public class SistemasContactos {
             System.out.println("No hay contactos previos. Se iniciará con la agenda vacía.");
         }
 
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.println("1. Agregar Persona");
             System.out.println("2. Agregar Empresa");
-            System.out.println("3. Mostrar Contactos Adelante");
-            System.out.println("4. Mostrar Contactos Atrás");
-            System.out.println("5. Eliminar Contacto");
-            System.out.println("6. Guardar Contactos");
-            System.out.println("7. Modificar Contacto ");
-            System.out.println("8. Salir");
+            System.out.println("3. Mostrar TODOS los Contactos");
+            System.out.println("4. Mostrar Contactos Adelante");
+            System.out.println("5. Mostrar Contactos Atrás");
+            System.out.println("6. Eliminar Contacto");
+            System.out.println("7. Guardar Contactos");
+            System.out.println("8. Modificar Contacto ");
+            System.out.println("9. Salir");
 
 
             int opcion = Validador.pedirNumero("Seleccione una opción: ");
@@ -44,21 +43,26 @@ public class SistemasContactos {
                 case 2:
                     gestor.añadirContactoEmpresa();
                     break;
-                case 3:
-                    gestor.mostrarContactosAdelante();
+
+                case 3 :
+                    gestor.mostrarContactosOrdenadosPorUsuario();
                     break;
                 case 4:
-                    gestor.mostrarContactosAtras();
+                    gestor.mostrarContactosAdelante();
                     break;
                 case 5:
-                    gestor.eliminarContacto();
+                    gestor.mostrarContactosAtras();
                     break;
                 case 6:
-                    gestor.guardarContactos(archivo);
+                    gestor.eliminarContacto();
                     break;
                 case 7:
-                    gestor.modificarAtributoContacto();
+                    gestor.guardarContactos(archivo);
+                    break;
                 case 8:
+                    gestor.modificarAtributoContacto();
+                    break;
+                case 9:
                     System.out.println("Saliendo del programa...");
                     gestor.guardarContactos(archivo); // Guardar al salir
                     return;

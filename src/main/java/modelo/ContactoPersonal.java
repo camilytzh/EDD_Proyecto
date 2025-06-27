@@ -7,24 +7,15 @@ import java.util.HashMap;
 public class ContactoPersonal extends Contacto implements Serializable {
     public String alias;
 
-    public ContactoPersonal(String nombre){
-        super(nombre);
-    }
-    public ContactoPersonal(String nombre, String alias){
-        super(nombre);
-        this.alias = alias;
-    }
-    public String getAlias(){
-        return alias;
-    }
-
-    public void setAlias(String alias){
+    public ContactoPersonal(String nombre,String pais, String alias){
+        super(nombre,pais);
         this.alias = alias;
     }
 
     @Override
     public void mostrarInformacion() {
         System.out.println("Nombre del contacto: " + getNombre()+" \n");
+        System.out.println("Pais: " + getPais()+" \n");
         System.out.println("Alias: " + alias + " \n");
 
         System.out.println("Telefonos registrados:");

@@ -112,6 +112,10 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     }
 
+    public boolean estaVacia(){
+        return tamanio == 0;
+    }
+
     public Contacto mostrarPosicionContactoActual() {
         if (nodoNavegacion != null) {
             return nodoNavegacion.dato;
@@ -119,6 +123,10 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             return null; // Lista vacía o nodoNavegacion no inicializado
         }
     }
+    public NodoCircularDoble<Contacto> getCabecera() {
+        return miCabecera;
+    }
+
 
     public void mostrarContactos(){
         if (miCabecera == null) {
@@ -130,7 +138,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             actual.dato.mostrarInformacion();
             actual = actual.siguiente;
         } while (actual != miCabecera);
-        System.out.println("cabeza");
+
     }
 
 }

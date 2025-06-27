@@ -1,6 +1,7 @@
 package estructuras;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class ArrayListPropio<E> implements Serializable {
     private E[] elementos;
@@ -58,4 +59,19 @@ public class ArrayListPropio<E> implements Serializable {
         }
         System.out.println();
     }
+
+
+    //para simular lo mismo que hace el sort en el ArrayList original de JAVA
+    public void ordenar(Comparator<E> comparador) {
+        for (int i = 0; i < tamanio - 1; i++) {
+            for (int j = 0; j < tamanio - i - 1; j++) {
+                if (comparador.compare(elementos[j], elementos[j + 1]) > 0) {
+                    E temp = elementos[j];
+                    elementos[j] = elementos[j + 1];
+                    elementos[j + 1] = temp;
+                }
+            }
+        }
+    }
+
 }

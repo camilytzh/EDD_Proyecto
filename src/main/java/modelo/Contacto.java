@@ -14,20 +14,19 @@ public abstract class Contacto implements Serializable {
     private HashMap<String, String> redesSociales;
     private ArrayListPropio<String> fotos;
     private HashMap<String,String> fechasDeInteres;
-    private static final long serialVersionUID = 1L;
+    private String pais;
 
-
-    public Contacto(String nombre) {
+    public Contacto(String nombre, String pais) {
         this.nombre = nombre;
+        this.pais = pais;
         this.telef = new HashMap<>();
         this.contactosRelacionados = new HashMap<>();
         this.emails = new HashMap<>();
         this.redesSociales = new HashMap<>();
         this.fotos = new ArrayListPropio<>();
         this.fechasDeInteres = new HashMap<>();
+
     }
-
-
 
     public String getNombre() {
         return nombre;
@@ -37,9 +36,10 @@ public abstract class Contacto implements Serializable {
         return telef;
     }
 
-    public HashMap<String, CustomListaCircularEnlazadaDoble<Contacto>> getContactosRelacionados() {
-        return contactosRelacionados;
+    public String getPais() {
+        return pais;
     }
+
 
     public HashMap<String, String> getEmails() {
         return emails;
@@ -64,9 +64,7 @@ public abstract class Contacto implements Serializable {
     public void agregarRedSocial(String plataforma, String usuario){
         redesSociales.put(plataforma, usuario);
     }
-    public void elminarRedSocial(String plataforma){
-        redesSociales.remove(plataforma);
-    }
+
     public void agregarRelacionado(String tipoRelacion, Contacto relacionado) {
         contactosRelacionados
                 .computeIfAbsent(tipoRelacion, k -> new CustomListaCircularEnlazadaDoble<>())
@@ -87,6 +85,20 @@ public abstract class Contacto implements Serializable {
         }
     }
 
+
+    public void agregarFechaDeInteres(String descripcion, String fecha) {
+        fechasDeInteres.put(descripcion,fecha);
+    }
+
+
+    public void eliminarFechaDeInteres(String descripcion) {
+        fechasDeInteres.remove(descripcion);
+    }
+
+    public void elminarRedSocial(String plataforma){
+        redesSociales.remove(plataforma);
+    }
+
     public String eliminarFoto(int indice) {
         try {
             return fotos.remove(indice);
@@ -95,17 +107,9 @@ public abstract class Contacto implements Serializable {
             return null;
         }
     }
-    public void agregarFechaDeInteres(String descripcion, String fecha) {
-        fechasDeInteres.put(descripcion,fecha);
-    }
-    public void eliminarFechaDeInteres(String descripcion) {
-        fechasDeInteres.remove(descripcion);
-    }
-    public abstract void mostrarInformacion();
 
-    public ArrayListPropio<String> getFotos() {
-        return fotos;
-    }
+
+    public abstract void mostrarInformacion();
 
     public HashMap<String, String> getFechasDeInteres() {
         return fechasDeInteres;

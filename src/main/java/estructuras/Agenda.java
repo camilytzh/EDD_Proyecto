@@ -6,6 +6,7 @@ import modelo.ContactoPersonal;
 import modelo.Validador;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -86,7 +87,9 @@ public class Agenda {
 
         String alias = Validador.pedirTexto("Ingrese el alias del contacto:");
 
-        ContactoPersonal persona = new ContactoPersonal(nombre, alias);
+        String pais = Validador.pedirTexto("Ingrese el pais: ");
+
+        ContactoPersonal persona = new ContactoPersonal(nombre,pais, alias);
 
         String respuesta = Validador.pedirTexto("¿Desea agregar numeros de telefono? (s -> si / cualquier tecla -> continuar):");
 
@@ -164,10 +167,11 @@ public class Agenda {
 
         String tipoEmail = Validador.pedirTexto("Ingrese el tipo de email de la empresa (Ejecutivo):");
         String correoEmail = Validador.pedirTexto("Ingrese el correo electrónico:");
+        String pais = Validador.pedirTexto("Ingrese el pais:");
 
         emailsEmpresa.put(tipoEmail, correoEmail);
 
-        ContactoLaboral empresa = new ContactoLaboral(nombreEmpresa, direccionEmpresa);
+        ContactoLaboral empresa = new ContactoLaboral(nombreEmpresa,pais, direccionEmpresa);
 
         empresa.getTelef().putAll(telefonosEmpresa);
         empresa.getEmails().putAll(emailsEmpresa);
@@ -397,4 +401,65 @@ public class Agenda {
         }
     }
 
-}
+    public void mostrarContactosOrdenadosPorUsuario() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("¿Cómo deseas ordenar los contactos?");
+        System.out.println("1. Por nombre");
+        System.out.println("2. Por país");
+        System.out.println("3. Por tipo de contacto (personal/laboral)");
+
+        int opcion = sc.nextInt();
+        sc.nextLine(); // Limpiar buffer
+
+        Comparator<Contacto> comparador = null;
+
+        switch (opcion) {
+            case 1:
+                comparador = ComparadoresContacto.comparadorPornombre();
+                break;
+            case 2:
+                comparador = ComparadoresContacto.comparadorPorPais();
+                break;
+            case 3:
+                comparador = ComparadoresContacto.comparadorPorTipo();
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                return;
+        }
+
+        if (comparador == null) return;
+
+        // Crear tu lista propia
+        ArrayListPropio<Contacto> listaTemporal = new ArrayListPropio<>();
+
+        if (contactos.estaVacia()) {
+            System.out.println("La lista está vacía.");
+            return;
+        }
+
+        // Rellenar desde la lista circular
+        NodoCircularDoble<Contacto> actual = contactos.getCabecera();
+        do {
+            listaTemporal.add(actual.dato);
+            actual = actual.siguiente;
+        } while (actual != contactos.getCabecera());
+
+        // Ordenar
+        listaTemporal.ordenar(comparador);
+
+        // Mostrar
+        System.out.println("--- Contactos ordenados ---");
+        for (int i = 0; i < listaTemporal.size(); i++) {
+            listaTemporal.get(i).mostrarInformacion();
+        }
+    }
+    }
+
+
+
+
+
+
+
