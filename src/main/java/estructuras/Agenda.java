@@ -88,7 +88,7 @@ public class Agenda {
 
         ContactoPersonal persona = new ContactoPersonal(nombre, alias);
 
-        String respuesta = Validador.pedirTexto("Desea agregar numeros de telefono (s/n):");
+        String respuesta = Validador.pedirTexto("¿Desea agregar numeros de telefono? (s -> si / cualquier tecla -> continuar):");
 
         while (respuesta.equalsIgnoreCase("s")) {
 
@@ -98,10 +98,10 @@ public class Agenda {
 
             persona.getTelef().put(tipo, numero);
 
-            respuesta = Validador.pedirTexto("Desea agregar otro numero de telefono (s/n):");
+            respuesta = Validador.pedirTexto("Desea agregar otro numero de telefono (s/cualquier tecla -> [continuar]):");
         }
 
-        respuesta = Validador.pedirTexto("Desea agregar correos electronicos (s/n):");
+        respuesta = Validador.pedirTexto("Desea agregar correos electronicos (s -> si / cualquier tecla -> continuar):");
         while (respuesta.equalsIgnoreCase("s")) {
 
             String tipo = Validador.pedirTexto("Ingrese el tipo de correo (Ej: personal, trabajo):");
@@ -109,9 +109,9 @@ public class Agenda {
             String correo = Validador.pedirTexto("Ingrese el correo:");
 
             persona.getEmails().put(tipo, correo);
-            respuesta = Validador.pedirTexto("Desea agregar otro correo (s/n):");
+            respuesta = Validador.pedirTexto("Desea agregar otro correo (s -> si / cualquier tecla -> continuar):");
         }
-        respuesta = Validador.pedirTexto("Desea agregar redes sociales (s/n):");
+        respuesta = Validador.pedirTexto("Desea agregar redes sociales (s -> si / cualquier tecla -> continuar):");
         while (respuesta.equalsIgnoreCase("s")) {
 
 
@@ -121,12 +121,12 @@ public class Agenda {
             persona.agregarRedSocial(plataforma, usuario);
 
 
-            respuesta =Validador.pedirTexto("Desea agregar otra red social (s/n):");
+            respuesta =Validador.pedirTexto("Desea agregar otra red social (s -> si / cualquier tecla -> continuar):");
         }
 
 
 
-        if (Validador.pedirTexto("¿Desea agregar fotos? (s/n):").equalsIgnoreCase("s")) {
+        if (Validador.pedirTexto("¿Desea agregar fotos? (s -> si / cualquier tecla -> continuar):").equalsIgnoreCase("s")) {
             do {
 
                 String foto = Validador.pedirTexto("Ruta de la foto:");
@@ -134,18 +134,18 @@ public class Agenda {
                 System.out.println();
 
 
-            } while (Validador.pedirTexto("¿Desea agregar otra foto? (s/n):").equalsIgnoreCase("s"));
+            } while (Validador.pedirTexto("¿Desea agregar otra foto? (s -> si / cualquier tecla -> continuar):").equalsIgnoreCase("s"));
         }
 
 
-        if (Validador.pedirTexto("¿Desea agregar fechas de interés? (s/n):").equalsIgnoreCase("s")) {
+        if (Validador.pedirTexto("¿Desea agregar fechas de interés? (s -> si / cualquier tecla -> continuar):").equalsIgnoreCase("s")) {
             do {
                 String descripcion = Validador.pedirTexto("Descripción de la fecha:");
 
                 String fecha = Validador.pedirTexto("Fecha:");
                 persona.agregarFechaDeInteres(descripcion, fecha);
 
-            } while (Validador.pedirTexto("¿Desea agregar otra fecha? (s/n):").equalsIgnoreCase("s"));
+            } while (Validador.pedirTexto("¿Desea agregar otra fecha? (s -> si / cualquier tecla -> continuar):").equalsIgnoreCase("s"));
         }
         contactos.addLast(persona);
         System.out.println("Contacto creado y agregado a la lista");
