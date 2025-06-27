@@ -30,7 +30,8 @@ public class SistemasContactos {
             System.out.println("4. Mostrar Contactos Atrás");
             System.out.println("5. Eliminar Contacto");
             System.out.println("6. Guardar Contactos");
-            System.out.println("7. Salir");
+            System.out.println("7. Modificar Contacto ");
+            System.out.println("8. Salir");
 
 
             int opcion = Validador.pedirNumero("Seleccione una opción: ");
@@ -56,6 +57,8 @@ public class SistemasContactos {
                     gestor.guardarContactos(archivo);
                     break;
                 case 7:
+                    gestor.modificarAtributoContacto();
+                case 8:
                     System.out.println("Saliendo del programa...");
                     gestor.guardarContactos(archivo); // Guardar al salir
                     return;
