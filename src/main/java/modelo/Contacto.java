@@ -94,8 +94,7 @@ public abstract class Contacto implements Serializable {
 
         CustomListaCircularEnlazadaDoble<Contacto> relacionados = contactosRelacionados.get(tipoRelacion);
 
-        for (int i = 0; i < relacionados.getSize(); i++) {
-            Contacto c = relacionados.get(i);
+        for (Contacto c : relacionados) {
             if (c.getNombre().equalsIgnoreCase(nombreContacto)) {
                 relacionados.eliminar(c);
                 if (relacionados.getSize() == 0) {

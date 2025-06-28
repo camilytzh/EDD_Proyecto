@@ -3,6 +3,8 @@ package estructuras;
 import modelo.Contacto;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 //Implementacion de un nodo para hacer uso en mi linkedList
@@ -17,11 +19,11 @@ class NodoCircularDoble<T> implements Serializable{
 }
 
 //Mi propia ListaCircularEnlazadaDoble creado desde 0
-public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
+public class CustomListaCircularEnlazadaDoble<T> implements Iterable<T>, Serializable{
 
     //nodo cabeza y ultimo
-    public NodoCircularDoble<Contacto> miCabecera;
-    private NodoCircularDoble<Contacto> nodoNavegacion;
+    public NodoCircularDoble<T> miCabecera;
+    private NodoCircularDoble<T> nodoNavegacion;
     private int tamanio;
 
 
@@ -34,10 +36,13 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     }
 
-    //Metodo para agregar un contacto al final de mi lista :)
-    public void addLast(Contacto contacto){
 
-        NodoCircularDoble<Contacto> nuevoNodo = new NodoCircularDoble(contacto);
+
+
+    //Metodo para agregar un contacto al final de mi lista :)
+    public void addLast(T contacto){
+
+        NodoCircularDoble<T> nuevoNodo = new NodoCircularDoble(contacto);
 
         if(miCabecera == null){
 
@@ -46,7 +51,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             miCabecera.anterior = miCabecera;
             nodoNavegacion = miCabecera;
         }else{
-            NodoCircularDoble<Contacto> ultimoNodo = miCabecera.anterior;
+            NodoCircularDoble<T> ultimoNodo = miCabecera.anterior;
 
             ultimoNodo.siguiente = nuevoNodo;
             nuevoNodo.anterior = ultimoNodo;
@@ -64,12 +69,12 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
     }
 
     //get por indice
-    public Contacto get(int index) {
+    public T get(int index) {
         if (miCabecera == null || index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
         }
 
-        NodoCircularDoble<Contacto> actual = miCabecera;
+        NodoCircularDoble<T> actual = miCabecera;
 
         for (int i = 0; i < index; i++) {
             actual = actual.siguiente;
@@ -85,7 +90,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             return false;
         }
 
-        NodoCircularDoble<Contacto> actual = miCabecera;
+        NodoCircularDoble<T> actual = miCabecera;
 
         // Recorremos la lista buscando el nodo con el contacto
         do {
@@ -139,7 +144,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     }
 
-    public Contacto mostrarPosicionContactoActual() {
+    public T mostrarPosicionContactoActual() {
         if (nodoNavegacion != null) {
             return nodoNavegacion.dato;
         } else {
@@ -153,7 +158,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
     }
 
     //obtener mi primer elemento
-    public NodoCircularDoble<Contacto> getCabecera() {
+    public NodoCircularDoble<T> getCabecera() {
         return miCabecera;
     }
 
@@ -163,13 +168,48 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             System.out.println("La lista esta vacia");
             return;
         }
-        NodoCircularDoble<Contacto> actual = miCabecera;
+        NodoCircularDoble<T> actual = miCabecera;
         do {
-            actual.dato.mostrarInformacion();
+            System.out.println(actual.dato);
             actual = actual.siguiente;
         } while (actual != miCabecera);
 
     }
+
+
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorListaCircular();
+    }
+
+
+
+    private class IteradorListaCircular implements Iterator<T> {
+        private NodoCircularDoble<T> actual = miCabecera;
+        private boolean inicio = true;
+
+        @Override
+        public boolean hasNext() {
+            return actual != null && (inicio || actual != miCabecera);
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            T dato = actual.dato;
+            actual = actual.siguiente;
+            inicio = false;
+            return dato;
+        }
+    }
+
+
+
+
+
+
+
+
 
 }
 
