@@ -91,9 +91,7 @@ public abstract class Contacto implements Serializable {
         if (!contactosRelacionados.containsKey(tipoRelacion)) {
             return false;
         }
-
         CustomListaCircularEnlazadaDoble<Contacto> relacionados = contactosRelacionados.get(tipoRelacion);
-
         for (Contacto c : relacionados) {
             if (c.getNombre().equalsIgnoreCase(nombreContacto)) {
                 relacionados.eliminar(c);
@@ -126,15 +124,13 @@ public abstract class Contacto implements Serializable {
 
     @Override
     public String toString() {
-        return "nombre='" + nombre + '\'' +
-                ", telef=" + telef +
-                ", contactosRelacionados=" + contactosRelacionados +
-                ", emails=" + emails +
-                ", redesSociales=" + redesSociales +
-                ", fotos=" + fotos +
-                ", fechasDeInteres=" + fechasDeInteres +
-                ", pais='" + pais + '\'' +
-                '}';
+        return "Nombre: " + nombre +
+                "\nTeléfonos: " + telef +
+                "\nContactos Relacionados: " + contactosRelacionados +
+                "\nEmails: " + emails +
+                "\nRedes Sociales: " + redesSociales +
+                "\nFechas De Interes: " + fechasDeInteres +
+                "\nPais: '" + pais + '\'';
     }
 
     //Agrega nuevos datos al mapa de fecha de interes (agrega una fecha de interes)

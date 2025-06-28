@@ -23,10 +23,10 @@ public class Agenda {
             System.out.println("La lista no tiene elementos.");
             return;
         }
-        contactos.avanzar();
+        contactos.avanzar(); // Navega hacia adelante por la lista
         Contacto contactoActual = contactos.mostrarPosicionContactoActual();
 
-        if (contactoActual != null) {
+        if (contactoActual != null) { // Si el contacto no es nulo, imprime la información del contacto posterior
             contactoActual.mostrarInformacion();
         } else {
             System.out.println("No hay un contacto actual para mostrar.");
@@ -37,10 +37,10 @@ public class Agenda {
             System.out.println("La lista no tiene elementos.");
             return;
         }
-        contactos.anterior();
+        contactos.anterior(); // Navega hacia atras por la lista
         Contacto contactoActual = contactos.mostrarPosicionContactoActual();
 
-        if (contactoActual != null) {
+        if (contactoActual != null) { // Si el contacto no es nulo, imprime la información del contacto anterior
             contactoActual.mostrarInformacion();
         } else {
             System.out.println("No hay un contacto actual para mostrar.");
@@ -48,7 +48,7 @@ public class Agenda {
     }
     public void agregarContacto(Contacto contacto) {
         if (contacto != null) {
-            contactos.addLast(contacto);
+            contactos.addLast(contacto); // Añade el contacto al final de la lista
             System.out.println("Contacto agregado exitosamente: " + contacto.getNombre());
         } else {
             System.out.println("No se pudo agregar un contacto vacio.");
@@ -58,21 +58,25 @@ public class Agenda {
 
         String telefono = Validador.pedirTexto("Ingrese el numero de telefono del contacto a eliminar:");
 
+        // Verifica si la lista de contactos está vacía o si no hay un contacto actual
         if (contactos == null || contactos.mostrarPosicionContactoActual() == null) {
             System.out.println("No hay contactos en la agenda para eliminar.");
             return;
         }
         boolean eliminado = false;
+
+        // Comienza desde el nodo cabecera de la lista circular
         NodoCircularDoble<Contacto> actual = contactos.miCabecera;
         if (actual == null) {
             System.out.println("No hay contactos en la lista.");
             return;
         }
+        // Recorre la lista circular hasta volver a la cabecera
         do {
             Contacto contacto = actual.dato;
             if (contacto.getTelef().containsValue(telefono)) {
                 eliminado = contactos.eliminar(contacto);
-                break;
+                break; // Sale del bucle porque ya encontró y eliminó al contacto
             }
             actual = actual.siguiente;
         } while (actual != contactos.miCabecera);
@@ -83,6 +87,7 @@ public class Agenda {
         }
     }
     public void crearContactoPersona() {
+        // Datos a pedir por teclado que son necesarios para crear un contacto persona
         String nombre = Validador.pedirTexto("Ingrese el nombre de la persona:");
 
         String alias = Validador.pedirTexto("Ingrese el alias del contacto:");
@@ -150,11 +155,11 @@ public class Agenda {
 
             } while (Validador.pedirTexto("¿Desea agregar otra fecha? (s -> si / cualquier tecla -> continuar):").equalsIgnoreCase("s"));
         }
-        contactos.addLast(persona);
+        contactos.addLast(persona); // Añade al contacto al final de la lista
         System.out.println("Contacto creado y agregado a la lista");
     }
     public void añadirContactoEmpresa() {
-
+        // Datos a pedir por teclado que son necesarios para crear un contacto empresa
         String nombreEmpresa = Validador.pedirTexto("Ingrese el nombre de la empresa:");
         String direccionEmpresa = Validador.pedirTexto("Ingrese la dirección del trabajo:");
 
@@ -176,15 +181,18 @@ public class Agenda {
         empresa.getTelef().putAll(telefonosEmpresa);
         empresa.getEmails().putAll(emailsEmpresa);
 
-        contactos.addLast(empresa);
+        contactos.addLast(empresa); // Añade al contacto al final de la lista
         System.out.println("Empresa añadida exitosamente.");
     }
 
     public void guardarContactos(String archivo) {
+        // Intenta abrir un flujo de salida para guardar objetos en un archivo binario
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
             NodoCircularDoble<Contacto> actual = contactos.miCabecera;
+            // Si la lista no está vacía, recorre todos los nodos de la lista circular
             if (actual != null) {
                 do {
+                    // Escribe el objeto Contacto actual en el archivo
                     oos.writeObject(actual.dato);
                     actual = actual.siguiente;
                 } while (actual != contactos.miCabecera);
@@ -195,11 +203,12 @@ public class Agenda {
         }
     }
     public void cargarContactos(String archivo) {
+        // Intenta abrir un flujo de entrada para leer objetos de un archivo binario
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
             while (true) {
                 try {
                     Contacto contacto = (Contacto) ois.readObject();
-                    contactos.addLast(contacto);
+                    contactos.addLast(contacto); // Agrega cada contacto al final de la lista
                 } catch (EOFException e) {
                     break;
                 }
@@ -214,6 +223,7 @@ public class Agenda {
         if (contactos.miCabecera == null) return null;
 
         NodoCircularDoble<Contacto> actual = contactos.miCabecera;
+        // Recorre la lista circular para buscar un contacto con nombre igual
         do {
             if (actual.dato.getNombre().equalsIgnoreCase(nombre)) {
                 return actual.dato;
@@ -228,6 +238,7 @@ public class Agenda {
         Scanner sc = new Scanner(System.in);
         String nombre = Validador.pedirTexto("Ingrese el nombre del contacto a modificar: ");
 
+        // Busca el contacto por nombre
         Contacto contacto = buscarPorNombre(nombre);
 
         if (contacto == null) {
@@ -238,9 +249,11 @@ public class Agenda {
         System.out.println("\nContacto encontrado: " + contacto.getNombre());
         System.out.println("Seleccione el atributo a modificar:");
 
+        // Mapa para asociar opciones numéricas con nombres de atributos
         int i = 1;
         HashMap<Integer, String> opciones = new HashMap<>();
 
+        // Imprime opciones y las almacena para referencia posterior
         System.out.println((i) + ". Nombre");
         opciones.put(i++, "nombre");
 
@@ -262,7 +275,7 @@ public class Agenda {
         System.out.println((i) + ". Contacto Relacionado");
         opciones.put(i++, "relacionado");
 
-
+        // Opciones específicas según el tipo de contacto
         if (contacto instanceof ContactoPersonal) {
             System.out.println((i) + ". Alias");
             opciones.put(i++, "alias");
@@ -281,7 +294,7 @@ public class Agenda {
             System.out.println("Opción inválida.");
             return;
         }
-
+        // Según el atributo elegido, ejecuta la acción correspondiente
         switch (tipo) {
             case "nombre":
                 contacto.setNombre(Validador.pedirTexto("Nuevo nombre: "));
@@ -424,13 +437,13 @@ public class Agenda {
 
         switch (opcion) {
             case 1:
-                comparador = ComparadoresContacto.comparadorPornombre();
+                comparador = ComparadoresContacto.comparadorPornombre(); // Utiliza el comparador para ordenar por nombre
                 break;
             case 2:
-                comparador = ComparadoresContacto.comparadorPorPais();
+                comparador = ComparadoresContacto.comparadorPorPais(); // Utiliza el comparador para ordenar por pais
                 break;
             case 3:
-                comparador = ComparadoresContacto.comparadorPorTipo();
+                comparador = ComparadoresContacto.comparadorPorTipo(); // Utiliza el comparador para ordenar por tipo de contacto
                 break;
             default:
                 System.out.println("Opción inválida.");
