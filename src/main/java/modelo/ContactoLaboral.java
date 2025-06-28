@@ -18,6 +18,7 @@ public class ContactoLaboral extends Contacto implements Serializable {
         this.direccionTrabajo = direccionTrabajo;
     }
 
+
     //Getters y Setters Necesarios
     public String getDireccionTrabajo() {
         return direccionTrabajo;
@@ -46,6 +47,7 @@ public class ContactoLaboral extends Contacto implements Serializable {
         for(Map.Entry entry : emails.entrySet()){
             System.out.println("> " + entry.getKey() + ": " + entry.getValue());
         }
+
 
         mostrarFotos();
 

@@ -124,6 +124,19 @@ public abstract class Contacto implements Serializable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "nombre='" + nombre + '\'' +
+                ", telef=" + telef +
+                ", contactosRelacionados=" + contactosRelacionados +
+                ", emails=" + emails +
+                ", redesSociales=" + redesSociales +
+                ", fotos=" + fotos +
+                ", fechasDeInteres=" + fechasDeInteres +
+                ", pais='" + pais + '\'' +
+                '}';
+    }
+
     //Agrega nuevos datos al mapa de fecha de interes (agrega una fecha de interes)
     public void agregarFechaDeInteres(String descripcion, String fecha) {
         fechasDeInteres.put(descripcion,fecha);
