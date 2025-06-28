@@ -6,7 +6,7 @@ public class GeneradorDatosIniciales {
     public static void main(String[] args) {
         Agenda agenda = new Agenda();
 
-        // Crear contactos de prueba
+        // Clase para crear los datos iniciales con ayuda de la Serializacion en Java con un .dat
         ContactoPersonal contacto1 = new ContactoPersonal("Ana Torres","Ecuador", "Mejor amiga");
         contacto1.getTelef().put("celular", "0991234567");
         contacto1.getEmails().put("personal", "ana.torres@gmail.com");

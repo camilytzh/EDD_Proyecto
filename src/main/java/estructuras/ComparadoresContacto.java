@@ -6,8 +6,12 @@ import modelo.ContactoPersonal;
 
 import java.util.Comparator;
 
+
+//Clase aparte solo para comparadores (ordenacion de lista y Filtracion)
 public class ComparadoresContacto {
 
+
+    //Comparador Por Nombre
     static Comparator<Contacto> comparadorPornombre(){
 
         return Comparator.comparing(Contacto::getNombre);
@@ -15,14 +19,15 @@ public class ComparadoresContacto {
 
     }
 
+
+    //Comparador Por Pais
     static Comparator<Contacto> comparadorPorPais(){
         return Comparator.comparing(Contacto::getPais);
 
     }
 
 
-
-    //Ordenada la lista en donde primero van los contactos personales
+    //Ordenada la lista en donde primero van los contactos personales y luego ya los Laborales
 
     static Comparator<Contacto> comparadorPorTipo() {
         return Comparator.comparing(contacto -> {

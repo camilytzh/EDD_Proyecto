@@ -2,10 +2,18 @@ package modelo;
 
 import java.util.Scanner;
 
+
+
+//Esta es una clase que me ayuda a validar los inputs del usuario,
+// para que ingrese lo que tenga que ingresar
+
 public class Validador {
 
+    //Nos ayuda tambien a tener una solo instancia de Scanner
     private static final Scanner scanner = new Scanner(System.in);
 
+
+    //para numeros
     public static int pedirNumero(String mensaje) {
         while (true) {
             System.out.print(mensaje);
@@ -18,6 +26,8 @@ public class Validador {
         }
     }
 
+
+    //para Texto
     public static String pedirTexto(String mensaje) {
         while (true) {
             System.out.print(mensaje);

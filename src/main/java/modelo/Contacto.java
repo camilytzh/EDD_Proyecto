@@ -6,6 +6,10 @@ import estructuras.CustomListaCircularEnlazadaDoble;
 import java.io.Serializable;
 import java.util.HashMap;
 
+
+//Esta es la clase Contacto padre de ContactoLaboral y ContactoPersonal
+//Implementa serializable debido a que vamos a serializar datos con los atributos de esta clase
+
 public abstract class Contacto implements Serializable {
     private String nombre;
     private HashMap<String,String> telef;
@@ -16,6 +20,9 @@ public abstract class Contacto implements Serializable {
     private HashMap<String,String> fechasDeInteres;
     private String pais;
 
+
+
+//Constructor
     public Contacto(String nombre, String pais) {
         this.nombre = nombre;
         this.pais = pais;
@@ -28,6 +35,7 @@ public abstract class Contacto implements Serializable {
 
     }
 
+    //Getters y Setters NECESARIOS
     public String getNombre() {
         return nombre;
     }
@@ -51,6 +59,9 @@ public abstract class Contacto implements Serializable {
     public HashMap<String, String> getRedesSociales() {
         return redesSociales;
     }
+    public HashMap<String, String> getFechasDeInteres() {
+        return fechasDeInteres;
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -73,6 +84,9 @@ public abstract class Contacto implements Serializable {
                 .computeIfAbsent(tipoRelacion, k -> new CustomListaCircularEnlazadaDoble<>())
                 .addLast(relacionado);
     }
+
+
+    //Busca y elimina un contacto relacionado segun su tipo de relacion y el nombre del contacto
     public boolean eliminarRelacionado(String tipoRelacion, String nombreContacto) {
         if (!contactosRelacionados.containsKey(tipoRelacion)) {
             return false;
@@ -94,6 +108,8 @@ public abstract class Contacto implements Serializable {
         return false;
     }
 
+
+    //Muestra todos los contactos relacionados agrupados por su tipo de relacion
     public void mostrarContactosRelacionados() {
         if (contactosRelacionados == null || contactosRelacionados.isEmpty()) {
             return;
@@ -109,14 +125,14 @@ public abstract class Contacto implements Serializable {
         }
     }
 
+    //Agrega nuevos datos al mapa de fecha de interes (agrega una fecha de interes)
     public void agregarFechaDeInteres(String descripcion, String fecha) {
         fechasDeInteres.put(descripcion,fecha);
     }
 
+    //Metodo abstracto para que las clases hijas implemente su "toString"
     public abstract void mostrarInformacion();
 
-    public HashMap<String, String> getFechasDeInteres() {
-        return fechasDeInteres;
-    }
+
 
 }

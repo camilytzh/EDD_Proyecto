@@ -8,10 +8,14 @@ import java.util.Scanner;
 import java.io.File;
 import java.util.Scanner;
 
+
+//MAIN MENU DEL PROYECTO
 public class SistemasContactos {
     public static void main(String[] args) {
+
+        //instancia de mi gestor de mi agenda
         Agenda gestor = new Agenda();
-        String archivo = "contactos.bin";
+        String archivo = "contactos.bin"; //archivo a usar en la serializacion
 
         // Cargar contactos automáticamente si el archivo existe
         File file = new File(archivo);
@@ -21,6 +25,7 @@ public class SistemasContactos {
             System.out.println("No hay contactos previos. Se iniciará con la agenda vacía.");
         }
 
+        //menú
         while (true) {
             System.out.println("======== MENU DE OPCIONES ========");
             System.out.println("1. Agregar Persona");

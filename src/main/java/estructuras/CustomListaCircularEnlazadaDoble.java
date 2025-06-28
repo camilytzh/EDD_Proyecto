@@ -4,6 +4,8 @@ import modelo.Contacto;
 
 import java.io.*;
 
+
+//Implementacion de un nodo para hacer uso en mi linkedList
 class NodoCircularDoble<T> implements Serializable{
     T dato;
     NodoCircularDoble<T> siguiente, anterior;
@@ -14,12 +16,16 @@ class NodoCircularDoble<T> implements Serializable{
     }
 }
 
+//Mi propia ListaCircularEnlazadaDoble creado desde 0
 public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
+    //nodo cabeza y ultimo
     public NodoCircularDoble<Contacto> miCabecera;
     private NodoCircularDoble<Contacto> nodoNavegacion;
     private int tamanio;
 
+
+    //constructor
     public CustomListaCircularEnlazadaDoble(){
 
         this.miCabecera = null;
@@ -28,7 +34,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     }
 
-    //Metodo para agregar un contacto
+    //Metodo para agregar un contacto al final de mi lista :)
     public void addLast(Contacto contacto){
 
         NodoCircularDoble<Contacto> nuevoNodo = new NodoCircularDoble(contacto);
@@ -51,9 +57,13 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
         tamanio++;
 
     }
+
+    //metodo para obtener el tamaño
     public int getSize(){
         return tamanio;
     }
+
+    //get por indice
     public Contacto get(int index) {
         if (miCabecera == null || index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
@@ -68,7 +78,7 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
         return actual.dato;
     }
 
-    // Método para eliminar un contacto específico
+    // Metodo para eliminar un contacto específico
     public boolean eliminar(Contacto contacto) {
         if (miCabecera == null) {
             System.out.println("La lista esta vacia. No se puede eliminar.");
@@ -109,7 +119,8 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
         System.out.println("Contacto no encontrado.");
         return false;
     }
-    // Metodos para poder navegar por la lista
+
+    // Metodos para poder navegar por la lista (debe ser con iterator)
 
     public void avanzar(){
         if(nodoNavegacion != null){
@@ -128,10 +139,6 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
 
     }
 
-    public boolean estaVacia(){
-        return tamanio == 0;
-    }
-
     public Contacto mostrarPosicionContactoActual() {
         if (nodoNavegacion != null) {
             return nodoNavegacion.dato;
@@ -139,11 +146,18 @@ public class CustomListaCircularEnlazadaDoble<T> implements Serializable {
             return null; // Lista vacía o nodoNavegacion no inicializado
         }
     }
+
+    //para verificar si la lista esta vacia
+    public boolean estaVacia(){
+        return tamanio == 0;
+    }
+
+    //obtener mi primer elemento
     public NodoCircularDoble<Contacto> getCabecera() {
         return miCabecera;
     }
 
-
+    //metodo para mostrar todos mis elementos (contactos)
     public void mostrarContactos(){
         if (miCabecera == null) {
             System.out.println("La lista esta vacia");

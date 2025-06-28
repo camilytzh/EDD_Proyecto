@@ -3,16 +3,20 @@ package estructuras;
 import java.io.Serializable;
 import java.util.Comparator;
 
+
 public class ArrayListPropio<E> implements Serializable {
     private E[] elementos;
     private int tamanio;
 
+
+    //Constructor
     @SuppressWarnings("unchecked")
     public ArrayListPropio() {
         this.elementos = (E[]) new Object[10];
         this.tamanio = 0;
     }
 
+    //añadir un elemento
     public void add(E elemento) {
         if (tamanio == elementos.length) {
             redimensionar();
@@ -20,6 +24,7 @@ public class ArrayListPropio<E> implements Serializable {
         elementos[tamanio++] = elemento;
     }
 
+    //Get por indice
     public E get(int indice) {
         if (indice < 0 || indice >= tamanio) {
             throw new IndexOutOfBoundsException("Índice fuera de rango.");
@@ -27,15 +32,6 @@ public class ArrayListPropio<E> implements Serializable {
         return elementos[indice];
     }
 
-    public E remove(int indice) {
-        if (indice < 0 || indice >= tamanio) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango.");
-        }
-        E eliminado = elementos[indice];
-        System.arraycopy(elementos, indice + 1, elementos, indice, tamanio - indice - 1);
-        elementos[--tamanio] = null;
-        return eliminado;
-    }
 
     public int size() {
         return tamanio;
@@ -51,13 +47,6 @@ public class ArrayListPropio<E> implements Serializable {
         }
 
         elementos = nuevosElementos;
-    }
-
-    public void printAll() {
-        for (int i = 0; i < tamanio; i++) {
-            System.out.print(elementos[i] + " ");
-        }
-        System.out.println();
     }
 
 
