@@ -30,7 +30,7 @@ public abstract class Contacto implements Serializable {
         this.contactosRelacionados = new HashMap<>();
         this.emails = new HashMap<>();
         this.redesSociales = new HashMap<>();
-        this.fotos = new ArrayListPropio<>();
+        this.fotos = new ArrayListPropio<>(String.class);
         this.fechasDeInteres = new HashMap<>();
 
     }

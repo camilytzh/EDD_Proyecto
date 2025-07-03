@@ -540,7 +540,7 @@ public class Agenda {
         if (comparador == null) return;
 
         // Crear tu lista propia
-        ArrayListPropio<Contacto> listaTemporal = new ArrayListPropio<>();
+        ArrayListPropio<Contacto> listaTemporal = new ArrayListPropio<>(Contacto.class);
 
         if (contactos.estaVacia()) {
             System.out.println("La lista está vacía.");

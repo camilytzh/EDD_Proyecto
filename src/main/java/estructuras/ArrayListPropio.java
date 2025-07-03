@@ -1,25 +1,37 @@
 package estructuras;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.Comparator;
 
 
 public class ArrayListPropio<E> implements Serializable {
     private E[] elementos;
     private int tamanio;
+    private Class<E> tipo;
+    private int capacidad;
+
 
 
     //Constructor
     @SuppressWarnings("unchecked")
-    public ArrayListPropio() {
-        this.elementos = (E[]) new Object[10];
-        this.tamanio = 0;
+    // Constructor con capacidad inicial predeterminada (10)
+    public ArrayListPropio(Class<E> tipo) {
+        this(tipo, 10); // Llama al constructor con capacidad personalizada
+    }
+
+    // Constructor que permite especificar una capacidad inicial personalizada
+    @SuppressWarnings("unchecked")
+    public ArrayListPropio(Class<E> tipo, int capacidadInicial) {
+        this.tipo = tipo;
+        this.capacidad = capacidadInicial;
+        this.elementos = (E[]) Array.newInstance(tipo, capacidad); // Crear un array de tipo E con la capacidad inicial
     }
 
     //añadir un elemento
     public void add(E elemento) {
         if (tamanio == elementos.length) {
-            redimensionar();
+            expandirCapacidad();
         }
         elementos[tamanio++] = elemento;
     }
@@ -38,15 +50,14 @@ public class ArrayListPropio<E> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void redimensionar() {
-        int nuevoTamanio = (int) (elementos.length * 1.5);
-        E[] nuevosElementos = (E[]) new Object[nuevoTamanio];
-
-        for (int i = 0; i < elementos.length; i++) {
-            nuevosElementos[i] = elementos[i];
+    private void expandirCapacidad() {
+        capacidad = capacidad + (capacidad / 2); // Incremento del 50%
+        E[] nuevoArray = (E[]) Array.newInstance(tipo, capacidad); // Crear un nuevo array de tipo E con capacidad expandida
+        // Copiar elementos del array antiguo al nuevo
+        for (int i = 0; i < tamanio; i++) {
+            nuevoArray[i] = elementos[i];
         }
-
-        elementos = nuevosElementos;
+        elementos = nuevoArray; // Reemplazar el array antiguo por el nuevo
     }
 
 
