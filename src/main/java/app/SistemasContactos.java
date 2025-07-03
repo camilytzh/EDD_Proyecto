@@ -51,7 +51,7 @@ public class SistemasContactos {
                     gestor.añadirContactoEmpresa();
                     break;
                 case 3 :
-                    gestor.mostrarContactosOrdenadosPorUsuario();
+                    gestor.mostrarContactosFiltradosUOrdenados();
                     break;
                 case 4:
                     gestor.mostrarContactosAdelante();

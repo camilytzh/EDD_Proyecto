@@ -424,7 +424,94 @@ public class Agenda {
                 System.out.println("Opción no válida.");
         }
     }
+    public void filtrarPorComparador(Comparator<Contacto> comparador, Contacto referencia) {
+        if (contactos == null || contactos.miCabecera == null) {
+            System.out.println("No hay contactos en la agenda.");
+            return;
+        }
 
+        NodoCircularDoble<Contacto> actual = contactos.miCabecera;
+        boolean encontrado = false;
+
+        do {
+            if (comparador.compare(actual.dato, referencia) == 0) {
+                actual.dato.mostrarInformacion();
+                System.out.println("------------------------------");
+                encontrado = true;
+            }
+            actual = actual.siguiente;
+        } while (actual != contactos.miCabecera);
+
+        if (!encontrado) {
+            System.out.println("No se encontraron contactos con ese criterio.");
+        }
+    }
+
+    public void filtrarContactos(){
+        System.out.println("¿Cómo deseas filtrar los contactos?");
+        System.out.println("1. Por nombre");
+        System.out.println("2. Por país");
+        System.out.println("3. Por tipo de contacto (personal/laboral)");
+
+        int opcion = Validador.pedirNumero("Opcion: ");
+
+        Comparator<Contacto> comparador;
+        Contacto referencia;
+
+        switch (opcion) {
+            case 1:
+                String nombre = Validador.pedirTexto("Ingrese el nombre a buscar: ");
+                comparador = ComparadoresContacto.comparadorPornombre();
+                referencia = new ContactoPersonal(nombre, "TMP", "TMP"); // solo importa el nombre
+                filtrarPorComparador(comparador, referencia);
+                break;
+
+            case 2:
+                String pais = Validador.pedirTexto("Ingrese el país a buscar: ");
+                comparador = ComparadoresContacto.comparadorPorPais();
+                referencia = new ContactoPersonal("TMP", pais, "TMP"); // solo importa el país
+                filtrarPorComparador(comparador, referencia);
+                break;
+
+            case 3:
+                String tipo = Validador.pedirTexto("Ingrese el tipo (personal/laboral): ").toLowerCase();
+                comparador = ComparadoresContacto.comparadorPorTipo();
+
+                if (tipo.equals("personal")) {
+                    referencia = new ContactoPersonal("TMP", "TMP", "TMP"); // se filtra por instancia
+                } else if (tipo.equals("laboral")) {
+                    referencia = new ContactoLaboral("TMP", "TMP", "TMP");
+                } else {
+                    System.out.println("Tipo inválido.");
+                    return;
+                }
+
+                filtrarPorComparador(comparador, referencia);
+                break;
+
+            default:
+                System.out.println("Opción inválida.");
+        }
+    }
+    public void mostrarContactosFiltradosUOrdenados(){
+        System.out.println("Selecciona una forma de visualizar los contactos. ");
+        System.out.println("1. Mostrar Contactos Filtrados");
+        System.out.println("2. Mostrar Contactos Ordenados");
+
+        int opcion = Validador.pedirNumero("Opcion: ");
+        switch (opcion) {
+            case 1:
+                filtrarContactos();
+                break;
+            case 2:
+                mostrarContactosOrdenadosPorUsuario();
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                return;
+        }
+
+    }
     public void mostrarContactosOrdenadosPorUsuario() {
         System.out.println("¿Cómo deseas ordenar los contactos?");
         System.out.println("1. Por nombre");
